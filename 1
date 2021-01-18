@@ -18,7 +18,7 @@ def ground_shipping(weight):
     cost = (weight * 4.00) + flat_charge
   else:
     cost = (weight * 4.75) + flat_charge
-  return cost, premium_shipping
+  return cost,premium_shipping
 
 def drone_shipping(weight):
   flat_charge = 0.00
@@ -36,11 +36,11 @@ def cheapest_shipping(weight):
   ground, premium = ground_shipping(weight)
   drone = drone_shipping(weight)
   if (ground < premium) and (ground <drone):
-    return ("Cheapest shipping is ground shipping = \$" + str(ground))
+    return ("ground shipping = $ " + str(ground))
   elif (drone < premium) and (drone < ground):
-    return ("Cheapest shipping is drone shipping = \$" + str(drone))
+    return ("drone shipping = $ " + str(drone))
   else:
-    return ("Cheapest shipping is premium shipping = \$" + str(premium))
+    return ("premium shipping = $ " + str(premium))
 
 def main():
     #ground_shipping, premium_shipping = ground_shipping(8.4)
@@ -63,25 +63,27 @@ def main():
     answer = answer.split('|')
     weight = int(answer[0])
     shipping_method =  answer[1]
-
+    flag1 = flag2 = flag3 = flag4 = 0
     if shipping_method == "Ground Shipping" or shipping_method == "Premium Shipping":
         ground_price, premium_price = ground_shipping(weight)
         if shipping_method == "Ground Shipping":
-            output_price = ("Ground shipping = \$" + str(ground_price))
+            flag1 = 1
         else:
-            output_price = ("Premium Shipping = \$" + str(premium_price))
+            flag2 = 1
     elif shipping_method == "Drone Shipping":
-        output_price = drone_shipping(weight)
-        output_price = ("Drone shipping = \$" + str(output_price))
+        drone_price = drone_shipping(weight)
+        flag3 = 1
     elif shipping_method == "Cheapest Shipping":
-        output_price = cheapest_shipping(weight)
-
+        price = cheapest_shipping(weight)
+        flag4 = 1
     else:
         print("Error, Program Exit")
         return 1 
 
-    output = "echo " + output_price + '|' + ' zenity --width=230 --height=120 --title="Result" --text-info'
-    output = subprocess.call(output, shell=True)
+    stat="Hello" 
+    output1 = subprocess.call(['$zenity --width=400 --height=130 --title="Result" --text-info'])
+    #output2 = subprocess.Popen('zenity --width=400 --height=130 --title="Result" --text-info', shell=True, stdin=output1.stdout)
+               
 
 if __name__ == "__main__":
     main()
