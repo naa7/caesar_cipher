@@ -6,7 +6,6 @@
 ![img_4](https://github.com/naa-7/caesar_cipher/blob/main/img_4.png) 
 
 
-
 The idea of this project is to encrypt and decrypt data using caesar cipher. The way caesar cipher works is by 
 
 shifting a character three positions forward when encrypting and three positions backward when decrypting, in
