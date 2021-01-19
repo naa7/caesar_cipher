@@ -11,7 +11,7 @@ def caesar_encrypt(clear_text):
         new_char_position = char_position + 3
 
         # To use only use letters, uncomment next 2 lines
-	    # new_char_position = new_char_position % 26
+        # new_char_position = new_char_position % 26
         #new_char_position = new_char_position + 97
         new_char = chr(new_char_position)
         
