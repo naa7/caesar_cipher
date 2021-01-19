@@ -1,24 +1,11 @@
+import subprocess
+
 def caesar_encrypt(clear_text):
     encrypted_output = ""
     # flag = 0
     
     for i in range(len(clear_text)):
-        
-        """
-        if clear_text[i].isupper():
-            flag = 1
-            clear_text[i] = clear_text[i].lower()
-        elif clear_text[i] == ' ':
-            encrypted_output = encrypted_output + "#"
-            continue
-        elif clear_text[i] == '?':
-            encrypted_output = encrypted_output + "!"
-            continue
-        elif clear_text[i] == '!':
-            encrypted_output = encrypted_output + "?"
-            continue
-        """
-        
+         
         char_position = ord(clear_text[i])
         #char_position = char_position - 97
         new_char_position = char_position + 3
@@ -34,9 +21,9 @@ def caesar_encrypt(clear_text):
         encrypted_output = encrypted_output + new_char
         # flag = 0
 
-    print("---------------")
-    print("Encrypted text:", encrypted_output)
-
+    print("###################")
+    print("### Encrypted text:", encrypted_output)
+    print("###################")
 
 def caesar_decrypt(cipher_text):
     decrypted_output = ""
@@ -44,21 +31,6 @@ def caesar_decrypt(cipher_text):
     
     for i in range(len(cipher_text)):
 
-        """
-        if cipher_text[i].isupper():
-            flag = 1
-            cipher_text[i] = cipher_text[i].lower()
-	    elif cipher_text[i] == ' ':
-            decrypted_output = decrypted_output + "#"
-            continue
-        elif cipher_text[i] == '?':
-            decrypted_output = decrypted_output + "!"
-            continue
-        elif cipher_text[i] == '!':
-            decrypted_output = decrypted_output + "?"
-            continue
-        """
-        
         char_position = ord(cipher_text[i])
         # char_position = char_position - 97
         new_char_position = char_position - 3
@@ -72,16 +44,43 @@ def caesar_decrypt(cipher_text):
         decrypted_output = decrypted_output + new_char
         # flag = 0
 
-    print("---------------")
-    print("Decrypted text:", decrypted_output)
-
+    print("###################")
+    print("### Decrypted text:", decrypted_output)
+    print("###################")
 
 def main():
     try:
-        print("#######################")
-        print("###  Caesar Cipher  ###")
-        print("#######################")
+        #print("#######################")
+        #print("###  Caesar Cipher  ###")
+        #print("#######################")
 
+        input = subprocess.Popen('zenity --forms --title="Caesar Cipher" --text="" --add-combo="Options"\
+                --combo-values="Encrypt|Decrypt" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+
+        input = input.stdout.readline()
+        input = input.strip()
+        option = ""
+        text = ""
+        for i in range(len(input)):
+            if i <= 7:
+                if i < 7:
+                    option = option + input[i]
+                else:
+                    continue
+            else:
+                text = text + input[i]
+
+        if option == "Encrypt" and text != "":
+            caesar_encrypt(text)
+        elif option == "Decrypt" and text != "":
+            caesar_decrypt(text)
+        else:
+            print("#############################")
+            print("### Error, Entry missing! ###")
+            print("#############################")
+            return 1
+
+        """
         while True:
             choice = input("Do you want to encrypt or decrypt text?[E/d]: ")
             print("-----------------------------------------------")
@@ -103,6 +102,8 @@ def main():
                 print("###  End of Program  ###")
                 print("########################")
                 break
+        """
+
     except:
         print("\nError, Program Exit!") 
 
