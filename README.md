@@ -19,7 +19,7 @@ will become `#`, `a` --> `d`, `m` --> `p` and so on. Therefore, our encrypted te
 
 To decrypt it, we will do the opposite. Instead of moving three positions forward, we will move three
 
-positions backward, `L` --> `I`, `#` --> ` `, `d` --> `a` and so on.
+positions backward, `L` --> `I`, `#` --> `" "`, `d` --> `a` and so on.
 
 
 ### To run the program:
