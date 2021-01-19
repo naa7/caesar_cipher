@@ -11,7 +11,7 @@ The idea of this project is to encrypt and decrypt data using caesar cipher. The
 
 shifting a character three positions forward when encrypting and three positions backward when decrypting, in
 
-the ASCII table. For example xample, to encrypt `I am here", we need to change each character to third 
+the ASCII table. For example xample, to encrypt `I am here`, we need to change each character to third 
 
 character that comes after it. (1)`J` --> (2)`K` --> (3)`L`, so `I` will become `L`. The white space `" "`
 
