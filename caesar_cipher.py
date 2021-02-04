@@ -1,6 +1,6 @@
 import subprocess
 
-def caesar_encrypt(clear_text):
+def caesar_encrypt(clear_text,key):
     encrypted_output = ""
     # flag = 0
     
@@ -8,7 +8,7 @@ def caesar_encrypt(clear_text):
          
         char_position = ord(clear_text[i])
         #char_position = char_position - 97
-        new_char_position = char_position + 3
+        new_char_position = char_position + key
 
         # To use only use letters, uncomment next 2 lines
         # new_char_position = new_char_position % 26
@@ -25,7 +25,7 @@ def caesar_encrypt(clear_text):
     print("### Encrypted text:", encrypted_output)
     print("###################")
 
-def caesar_decrypt(cipher_text):
+def caesar_decrypt(cipher_text,key):
     decrypted_output = ""
     # flag = 0
     
@@ -33,7 +33,7 @@ def caesar_decrypt(cipher_text):
 
         char_position = ord(cipher_text[i])
         # char_position = char_position - 97
-        new_char_position = char_position - 3
+        new_char_position = char_position - key
         # new_char_position = new_char_position % 26
         # new_char_position = new_char_position + 97
         new_char = chr(new_char_position)
@@ -42,7 +42,7 @@ def caesar_decrypt(cipher_text):
         #   new_char = new_char.upper()
 
         decrypted_output = decrypted_output + new_char
-        # flag = 0
+        # fl ag = 0
 
     print("###################")
     print("### Decrypted text:", decrypted_output)
@@ -55,25 +55,30 @@ def main():
         #print("#######################")
 
         input = subprocess.Popen('zenity --forms --title="Caesar Cipher" --text="" --add-combo="Options"\
-                --combo-values="Encrypt|Decrypt" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+                --combo-values="Encrypt|Decrypt" --add-combo="Cipher key" --combo-values="1|2|3|4|5|6|7|8|9" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
 
         input = input.stdout.readline()
         input = input.strip()
         option = ""
         text = ""
+        key = ""
         for i in range(len(input)):
             if i <= 7:
                 if i < 7:
                     option = option + input[i]
                 else:
                     continue
+            elif i == 8:
+                    key = input[i]
             else:
-                text = text + input[i]
-
+                if input[i] == '|':
+                    continue
+                else:
+                    text = text + input[i]
         if option == "Encrypt" and text != "":
-            caesar_encrypt(text)
+            caesar_encrypt(text,int(key))
         elif option == "Decrypt" and text != "":
-            caesar_decrypt(text)
+            caesar_decrypt(text,int(key))
         else:
             print("#############################")
             print("### Error, Entry missing! ###")
