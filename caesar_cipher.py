@@ -55,7 +55,7 @@ def main():
         #print("#######################")
 
         input = subprocess.Popen('zenity --forms --title="Caesar Cipher" --text="" --add-combo="Options"\
-                --combo-values="Encrypt|Decrypt" --add-combo="Cipher key" --combo-values="1|2|3|4|5|6|7|8|9" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+                --combo-values="Encrypt|Decrypt" --add-combo="Cipher shifting key" --combo-values="1|2|3|4|5|6|7|8|9" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
 
         input = input.stdout.readline()
         input = input.strip()
