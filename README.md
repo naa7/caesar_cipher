@@ -2,9 +2,9 @@
 
 ![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103) <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg"> <img src="https://img.shields.io/github/stars/naa-7/caesar_cipher?style=social"> <img src="https://img.shields.io/github/repo-size/naa-7/caesar_cipher"> [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/naa-7/caesar_cipher/LICENSE)
 
-![img_1]() 
+![img_1](https://github.com/naa-7/caesar_cipher/blob/main/img_1.png) 
 ![img_2](https://github.com/naa-7/caesar_cipher/blob/main/img_2.png) 
-![img_3]() 
+![img_3](https://github.com/naa-7/caesar_cipher/blob/main/img_3.png) 
 ![img_4](https://github.com/naa-7/caesar_cipher/blob/main/img_4.png)    
 
 
