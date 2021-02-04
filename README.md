@@ -12,15 +12,15 @@ The idea of this project is to encrypt and decrypt data using caesar cipher. The
 
 shifting a character three positions forward when encrypting and three positions backward when decrypting, in
 
-the ASCII table. For example xample, to encrypt `I am here`, we need to change each character to third 
+the ASCII table. For example xample, to encrypt `I am here`, we need to shift each letter specific positions
 
-character that comes after it. (1)`J` --> (2)`K` --> (3)`L`, so `I` will become `L`. The white space `" "`
+forward. For example, Each letter will shift 3 positions. (1)`J` --> (2)`K` --> (3)`L`, so `I` will become
 
-will become `#`, `a` --> `d`, `m` --> `p` and so on. Therefore, our encrypted text will be `L#dp#khuh`.
+`L`. The white space `" "` will become `#`, `a` --> `d`, `m` --> `p` and so on. Therefore, our encrypted 
 
-To decrypt it, we will do the opposite. Instead of moving three positions forward, we will move three
+text will be `L#dp#khuh`. To decrypt it, we will do the opposite. Instead of moving three positions 
 
-positions backward, `L` --> `I`, `#` --> `" "`, `d` --> `a` and so on.
+forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` --> `a` and so on.
 
 
 ### To run the program:
