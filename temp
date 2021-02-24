@@ -1,0 +1,25 @@
+def index_list(input,item):
+    start_at = -1
+    indexes = []
+    while True:
+        try:
+            index = input.index(item,start_at+1)
+        except ValueError:
+            break
+        else:
+            indexes.append(index)
+            start_at = index
+    return indexes
+
+input = "Caesar Cipher|Encrypt|12|QEWBAFLSAFB"
+ind = index_list(input, '|')
+print(input)
+print(ind)
+cipher = input[:ind[0]]
+option = input[ind[0]+1:ind[1]]
+key = input[ind[1]+1:ind[2]]
+text = input[ind[2]+1:]
+print(cipher)
+print(option)
+print(key)
+print(text)
