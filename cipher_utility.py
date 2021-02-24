@@ -4,34 +4,42 @@ def main():
     try:
 
         input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
-                --combo-values="Caesar Cipher|ROT Cipher" --add-combo="Options" --combo-values="Encrypt|Decrypt" --add-combo="Cipher shifting key" --combo-values="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+                --combo-values="Caesar Cipher|ROT Cipher" --add-combo="Options" --combo-values="Encrypt|Decrypt" --add-entry="Cipher key" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
 
         input = input.stdout.readline()
         input = input.strip()
         ind = index_list(input,'|')
         cipher = input[:ind[0]]
         option = input[ind[0]+1:ind[1]]
-        key = input[ind[1]+1:ind[2]]
+        key = int(input[ind[1]+1:ind[2]])
         text = input[ind[2]+1:]
 
         if option == "Encrypt" and text != "":
             if cipher == "Caesar Cipher":
-               output1 = caesar_encrypt(text,int(key))
+               output1 = caesar_encrypt(text,key)
             else:
-               output1 = ROT_encrypt(text,int(key))
-            output2 = 'echo "' + output1 + '" >> temp.txt && cat temp.txt | zenity --width=400 --height=150 --title="Encrypted Text" --text-info && rm temp.txt'
+               output1 = ROT_encrypt(text,key)
         
         elif option == "Decrypt" and text != "":
             if cipher == "Caesar Cipher":
-               output1 = caesar_decrypt(text,int(key))
+               output1 = caesar_decrypt(text,key)
             else:
-               output1 = ROT_decrypt(text,int(key))
-            output2 = 'echo "' + output1 + '" >> temp.txt && cat temp.txt | zenity --width=400 --height=150 --title="Decrypted Text" --text-info && rm temp.txt'
+               output1 = ROT_decrypt(text,key)
         else:
             print("#############################")
             print("### Error, Entry missing! ###")
             print("#############################")
             return 1
+        
+        file = open("temp.txt", "w+")
+        file.write(output1)
+        file.close()
+        
+        if option == "Encrypt":
+           output2 = 'cat temp.txt | zenity --width=400 --height=150 --title="Encrypted Text" --text-info && rm temp.txt'
+        else:
+           output2 = 'cat temp.txt | zenity --width=400 --height=150 --title="decrypted Text" --text-info && rm temp.txt'
+
         call = subprocess.call(output2, shell=True)
 
 
@@ -61,13 +69,10 @@ def caesar_encrypt(clear_text,key):
         char_position = ord(clear_text[i])
         new_char_position = char_position + key
         if new_char_position > 126:
-           new_char_position = new_char_position - 94
+           new_char_position = new_char_position - 79 - key
         new_char = chr(new_char_position)
         encrypted_output = encrypted_output + new_char
 
-    #print("###################")
-    #print("### Encrypted text:", encrypted_output)
-    #print("###################")
     return encrypted_output
 
 
@@ -77,13 +82,10 @@ def caesar_decrypt(cipher_text,key):
         char_position = ord(cipher_text[i])
         new_char_position = char_position - key
         if new_char_position < 32:
-           new_char_position = new_char_position + 94
+           new_char_position = new_char_position + 79 + key
         new_char = chr(new_char_position)
         decrypted_output = decrypted_output + new_char
 
-    #print("###################")
-    #print("### Decrypted text:", decrypted_output)
-    #print("###################")
     return decrypted_output
 
 
@@ -102,7 +104,6 @@ def ROT_encrypt(clear_text,key):
           continue
        char_position = char_position - 97
        new_char_position = char_position + key
-       # works the same as 97 and modulu 26
        new_char_position = new_char_position % 26
        new_char_position = new_char_position + 97
        new_char = chr(new_char_position)
@@ -111,10 +112,8 @@ def ROT_encrypt(clear_text,key):
           flag = 0
        encrypted_output = encrypted_output + new_char
 
-#    print("###################")
-#    print("### Encrypted text:", encrypted_output)
-#    print("###################")
     return encrypted_output
+
 
 def ROT_decrypt(cipher_text,key):
     decrypted_output = ""
@@ -130,7 +129,6 @@ def ROT_decrypt(cipher_text,key):
           continue
        char_position = char_position - 97
        new_char_position = char_position - key
-       # works the same as 97 and modulu 26
        new_char_position = new_char_position % 26
        new_char_position = new_char_position + 97
        new_char = chr(new_char_position)
@@ -139,9 +137,6 @@ def ROT_decrypt(cipher_text,key):
           flag = 0
        decrypted_output = decrypted_output + new_char
 
-#    print("###################")
-#    print("### Decrypted text:", decrypted_output)
-#    print("###################")
     return decrypted_output
 
 
