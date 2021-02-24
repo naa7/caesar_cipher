@@ -1,5 +1,45 @@
 import subprocess
 
+def main():
+    try:
+
+        input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
+                --combo-values="Caesar Cipher|ROT Cipher" --add-combo="Options" --combo-values="Encrypt|Decrypt" --add-combo="Cipher shifting key" --combo-values="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+
+        input = input.stdout.readline()
+        input = input.strip()
+        ind = index_list(input,'|')
+        cipher = input[:ind[0]]
+        option = input[ind[0]+1:ind[1]]
+        key = input[ind[1]+1:ind[2]]
+        text = input[ind[2]+1:]
+
+        if option == "Encrypt" and text != "":
+            if cipher == "Caesar Cipher":
+               output1 = caesar_encrypt(text,int(key))
+            else:
+               output1 = ROT_encrypt(text,int(key))
+            output2 = 'echo "' + output1 + '" >> temp.txt && cat temp.txt | zenity --width=400 --height=150 --title="Encrypted Text" --text-info && rm temp.txt'
+        
+        elif option == "Decrypt" and text != "":
+            if cipher == "Caesar Cipher":
+               output1 = caesar_decrypt(text,int(key))
+            else:
+               output1 = ROT_decrypt(text,int(key))
+            output2 = 'echo "' + output1 + '" >> temp.txt && cat temp.txt | zenity --width=400 --height=150 --title="Decrypted Text" --text-info && rm temp.txt'
+        else:
+            print("#############################")
+            print("### Error, Entry missing! ###")
+            print("#############################")
+            return 1
+        call = subprocess.call(output2, shell=True)
+
+
+    except Exception as e:
+        print(e)
+        print("Error, Program Exit!") 
+
+
 def index_list(input,item):
     start_at = -1
     indexes = []
@@ -25,9 +65,10 @@ def caesar_encrypt(clear_text,key):
         new_char = chr(new_char_position)
         encrypted_output = encrypted_output + new_char
 
-    print("###################")
-    print("### Encrypted text:", encrypted_output)
-    print("###################")
+    #print("###################")
+    #print("### Encrypted text:", encrypted_output)
+    #print("###################")
+    return encrypted_output
 
 
 def caesar_decrypt(cipher_text,key):
@@ -40,9 +81,10 @@ def caesar_decrypt(cipher_text,key):
         new_char = chr(new_char_position)
         decrypted_output = decrypted_output + new_char
 
-    print("###################")
-    print("### Decrypted text:", decrypted_output)
-    print("###################")
+    #print("###################")
+    #print("### Decrypted text:", decrypted_output)
+    #print("###################")
+    return decrypted_output
 
 
 def ROT_encrypt(clear_text,key):
@@ -69,10 +111,10 @@ def ROT_encrypt(clear_text,key):
           flag = 0
        encrypted_output = encrypted_output + new_char
 
-    print("###################")
-    print("### Encrypted text:", encrypted_output)
-    print("###################")
-
+#    print("###################")
+#    print("### Encrypted text:", encrypted_output)
+#    print("###################")
+    return encrypted_output
 
 def ROT_decrypt(cipher_text,key):
     decrypted_output = ""
@@ -97,71 +139,11 @@ def ROT_decrypt(cipher_text,key):
           flag = 0
        decrypted_output = decrypted_output + new_char
 
-    print("###################")
-    print("### Decrypted text:", decrypted_output)
-    print("###################")
+#    print("###################")
+#    print("### Decrypted text:", decrypted_output)
+#    print("###################")
+    return decrypted_output
 
-
-def main():
-    try:
-        #print("########################")
-        #print("###  Cipher Utility  ###")
-        #print("########################")
-
-        input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
-                --combo-values="Caesar Cipher|ROT Cipher" --add-combo="Options" --combo-values="Encrypt|Decrypt" --add-combo="Cipher shifting key" --combo-values="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
-
-        input = input.stdout.readline()
-        input = input.strip()
-        ind = index_list(input,'|')
-        cipher = input[:ind[0]]
-        option = input[ind[0]+1:ind[1]]
-        key = input[ind[1]+1:ind[2]]
-        text = input[ind[2]+1:]
-
-        if option == "Encrypt" and text != "":
-            if cipher == "Caesar Cipher":
-               caesar_encrypt(text,int(key))
-            else:
-               ROT_encrypt(text,int(key))
-        elif option == "Decrypt" and text != "":
-            if cipher == "Caesar Cipher":
-               caesar_decrypt(text,int(key))
-            else:
-               ROT_decrypt(text,int(key))
-        else:
-            print("#############################")
-            print("### Error, Entry missing! ###")
-            print("#############################")
-            return 1
-
-        """
-        while True:
-            choice = input("Do you want to encrypt or decrypt text?[E/d]: ")
-            print("-----------------------------------------------")
-            if choice == 'E' or choice == 'e':
-                clear_text = list(input("Enter text to be encrypted: "))
-                caesar_encrypt(clear_text)
-            elif choice == 'D' or choice == 'd':
-                cipher_text = list(input("Enter text to be decrypted: "))
-                caesar_decrypt(cipher_text)
-            else:
-                print("Error, Entry is not recognized!")
-                return 1
-            print("-----------------------------------------------")
-            answer = input("Do you want to quit?[Y/n]: ")
-            if answer == 'N' or answer == 'n':
-                continue
-            else:
-                print("########################")
-                print("###  End of Program  ###")
-                print("########################")
-                break
-        """
-
-    except Exception as e:
-        print(e)
-        print("Error, Program Exit!") 
 
 if __name__ == "__main__":
     main()
