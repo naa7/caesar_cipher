@@ -4,27 +4,25 @@ def main():
     try:
 
         input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
-                --combo-values="Caesar Cipher|ROT Cipher" --add-combo="Options" --combo-values="Encrypt|Decrypt" --add-entry="Cipher key" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
-
+                --combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher" --add-combo="Options" --combo-values="Encrypt|Decrypt" --add-entry="Cipher key" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+        
         input = input.stdout.readline()
         input = input.strip()
         ind = index_list(input,'|')
         cipher = input[:ind[0]]
-        option = input[ind[0]+1:ind[1]]
-        key = int(input[ind[1]+1:ind[2]])
+        mode = input[ind[0]+1:ind[1]]
+        key = input[ind[1]+1:ind[2]]
         text = input[ind[2]+1:]
 
-        if option == "Encrypt" and text != "":
-            if cipher == "Caesar Cipher":
-               output1 = caesar_encrypt(text,key)
-            else:
-               output1 = ROT_encrypt(text,key)
-        
-        elif option == "Decrypt" and text != "":
-            if cipher == "Caesar Cipher":
-               output1 = caesar_decrypt(text,key)
-            else:
-               output1 = ROT_decrypt(text,key)
+        if cipher == "Caesar Cipher" and text != "":
+           output1 = caesar_cipher(mode,text,int(key))
+
+        elif cipher == "ROT Cipher" and text != "":
+           output1 = rot_cipher(mode,text,int(key))
+
+        elif cipher == "Vigenere Cipher" and text != "":
+           output1 = vigenere_cipher(mode,text,key)
+
         else:
             print("#############################")
             print("### Error, Entry missing! ###")
@@ -35,7 +33,7 @@ def main():
         file.write(output1)
         file.close()
         
-        if option == "Encrypt":
+        if mode == 'Encrypt':
            output2 = 'cat temp.txt | zenity --width=400 --height=150 --title="Encrypted Text" --text-info && rm temp.txt'
         else:
            output2 = 'cat temp.txt | zenity --width=400 --height=150 --title="decrypted Text" --text-info && rm temp.txt'
@@ -51,6 +49,7 @@ def main():
 def index_list(input,item):
     start_at = -1
     indexes = []
+    
     while True:
         try:
             index = input.index(item,start_at+1)
@@ -59,86 +58,111 @@ def index_list(input,item):
         else:
             indexes.append(index)
             start_at = index
+    
     return indexes
 
 
-def caesar_encrypt(clear_text,key):
-    encrypted_output = ""
-    for i in range(len(clear_text)):
+def caesar_cipher(mode,text,key):
+    output = ""
+    
+    for i in range(len(text)):
         #Obtain the ASCII value using ord
-        char_position = ord(clear_text[i])
-        new_char_position = char_position + key
-        if new_char_position > 126:
-           new_char_position = new_char_position - 79 - key
+        char_position = ord(text[i])
+        char_position = char_position - 32
+        
+        if mode == 'Encrypt':
+           new_char_position = char_position + key
+        elif mode == 'Decrypt':
+           new_char_position = char_position - key
+        
+        new_char_position = new_char_position % 94
+        new_char_position = new_char_position + 32
         new_char = chr(new_char_position)
-        encrypted_output = encrypted_output + new_char
+        output = output + new_char
 
-    return encrypted_output
-
-
-def caesar_decrypt(cipher_text,key):
-    decrypted_output = ""
-    for i in range(len(cipher_text)):
-        char_position = ord(cipher_text[i])
-        new_char_position = char_position - key
-        if new_char_position < 32:
-           new_char_position = new_char_position + 79 + key
-        new_char = chr(new_char_position)
-        decrypted_output = decrypted_output + new_char
-
-    return decrypted_output
+    return output
 
 
-def ROT_encrypt(clear_text,key):
-    encrypted_output = ""
+def rot_cipher(mode,text,key):
+    output = ""
     flag = 0
 
-    for i in range(len(clear_text)):
-       letter = clear_text[i]
-       if letter.isupper() == True:
-          letter = letter.lower()
-          flag = 1
-       char_position = ord(letter)
-       if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
-          encrypted_output = encrypted_output + chr(char_position)
-          continue
-       char_position = char_position - 97
-       new_char_position = char_position + key
-       new_char_position = new_char_position % 26
-       new_char_position = new_char_position + 97
-       new_char = chr(new_char_position)
-       if flag == 1:
-          new_char = new_char.upper()
-          flag = 0
-       encrypted_output = encrypted_output + new_char
+    for i in range(len(text)):
+        letter = text[i]
+        
+        if letter.isupper() == True:
+           letter = letter.lower()
+           flag = 1
+        
+        char_position = ord(letter)
+        
+        if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
+           output = output + chr(char_position)
+           continue
 
-    return encrypted_output
+        char_position = char_position - 97
+        
+        if mode == 'Encrypt':
+           new_char_position = char_position + key
+        elif mode == 'Decrypt':
+           new_char_position = char_position - key
+        
+        new_char_position = new_char_position % 26
+        new_char_position = new_char_position + 97
+        new_char = chr(new_char_position)
+        
+        if flag == 1:
+           new_char = new_char.upper()
+           flag = 0
+        
+        output = output + new_char
 
+    return output
 
-def ROT_decrypt(cipher_text,key):
-    decrypted_output = ""
+def vigenere_cipher(mode,text,key):
+    output = ""
+    keyIndex = 0
+    flag = 0
+    key = key.upper()
+    
+    for i in range(len(text)):
+        text_letter = text[i]
+        key_letter = key[keyIndex]
+        
+        if text_letter.islower() == True:
+           text_letter = text_letter.upper()
+           flag = 1
+        
+        char_position = ord(text_letter)
+        key_position = ord(key_letter)
 
-    for i in range(len(cipher_text)):
-       letter = cipher_text[i]
-       if letter.isupper() == True:
-          letter = letter.lower()
-          flag = 1
-       char_position = ord(letter)
-       if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
-          decrypted_output = decrypted_output + chr(char_position)
-          continue
-       char_position = char_position - 97
-       new_char_position = char_position - key
-       new_char_position = new_char_position % 26
-       new_char_position = new_char_position + 97
-       new_char = chr(new_char_position)
-       if flag == 1:
-          new_char = new_char.upper()
-          flag = 0
-       decrypted_output = decrypted_output + new_char
+        if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
+           output = output + chr(char_position)
+           continue
 
-    return decrypted_output
+        char_position = char_position - 65
+        
+        if mode == 'Encrypt':
+           new_char_position = char_position + key_position
+        elif mode == 'Decrypt':
+           new_char_position = char_position - key_position
 
+        new_char_position = new_char_position % 26
+        new_char_position = new_char_position + 65
+        new_char = chr(new_char_position)
+        keyIndex = keyIndex + 1
+
+        if keyIndex == len(key):
+           keyIndex = 0
+        
+        if flag == 1:
+           new_char = new_char.lower()
+           flag = 0
+        
+        output = output + new_char
+
+    return output
+    
 
 if __name__ == "__main__":
     main()
