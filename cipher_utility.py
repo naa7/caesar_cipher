@@ -1,36 +1,43 @@
 import subprocess, random
 
 def main():
-	try:
+	cipher_utility()
 
+
+def cipher_utility():
+	try:
 		input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
-			--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher" --add-combo="Options" --combo-values="Encrypt|Decrypt" --add-entry="Cipher key" --add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+			--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher"\
+			--add-combo="Mode" --combo-values="Encrypt|Decrypt"\
+			--add-combo="Word boundaries" --combo-values="Keep|Remove" --add-entry="Cipher key"\
+			--add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
         
 		input = input.stdout.readline()
 		input = input.strip()
 		ind = index_list(input,'|')
 		cipher = input[:ind[0]]
 		mode = input[ind[0]+1:ind[1]]
-		key = input[ind[1]+1:ind[2]]
-		text = input[ind[2]+1:]
+		option = input[ind[1]+1:ind[2]]
+		key = input[ind[2]+1:ind[3]]
+		text = input[ind[3]+1:]
 
 		if cipher == "Caesar Cipher" and text != "" and key != "":
 			output1 = caesar_cipher(mode,text,int(key))
 		elif cipher == "ROT Cipher" and text != "" and key != "":
-			output1 = rot_cipher(mode,text,int(key))
+			output1 = rot_cipher(mode,text,int(key),option)
 		elif cipher == "Vigenere Cipher" and text != "" and key != "":
-			output1 = vigenere_cipher(mode,text,key)
+			output1 = vigenere_cipher(mode,text,key,option)
 		elif cipher == "Monoalphabetic Cipher" and text != "":
 			dictionary = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 			if mode == 'Encrypt':
 				key = getRandomKey(dictionary)
-				output1 = monoalphabetic_cipher(mode,text,key,dictionary)
+				output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
 				output1 = "Encrypted text: " + output1 + "\nKey: " + key
 			else:
 				if not(keyValidity(key,dictionary)):
 					print("Error found in key")
 					exit(1)
-				output1 = monoalphabetic_cipher(mode,text,key,dictionary)
+				output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
 		else:
 			print("#############################")
 			print("### Error, Entry missing! ###")
@@ -49,8 +56,10 @@ def main():
 		call = subprocess.call(output2, shell=True)
 
 	except Exception as e:
-		print(e)
-		print("Error, Program Exit!") 
+		#print(e)
+		print("############################")
+		print("### Error, Program Exit! ###")
+		print("############################")
 
 
 def index_list(input,item):
@@ -104,7 +113,7 @@ def caesar_cipher(mode,text,key):
 	return output
 
 
-def rot_cipher(mode,text,key):
+def rot_cipher(mode,text,key,option):
 	output = ""
 
 	for i in range(len(text)):
@@ -115,9 +124,12 @@ def rot_cipher(mode,text,key):
         
 		char_position = ord(letter)
         
-		if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
-			output = output + chr(char_position)
-			continue
+		if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):			
+			if option == 'Remove' and mode == 'Encrypt' and char_position == 32:
+				continue	
+			else:		
+				output = output + chr(char_position)
+				continue
 
 		char_position = char_position - 97
         
@@ -137,7 +149,8 @@ def rot_cipher(mode,text,key):
 
 	return output
 
-def vigenere_cipher(mode,text,key):
+
+def vigenere_cipher(mode,text,key,option):
 	output = ""
 	keyIndex = 0
 	key = key.upper()
@@ -153,8 +166,11 @@ def vigenere_cipher(mode,text,key):
 		key_position = ord(key_letter)
 
 		if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
-			output = output + chr(char_position)
-			continue
+			if option == 'Keep':			
+				output = output + chr(char_position)
+				continue
+			else:
+				continue
 
 		char_position = char_position - 65
         
@@ -173,13 +189,13 @@ def vigenere_cipher(mode,text,key):
         
 		if text[i].islower():
 			new_char = new_char.lower()
-        
+
 		output = output + new_char
 
 	return output
 
     
-def monoalphabetic_cipher(mode,text,key,dictionary):
+def monoalphabetic_cipher(mode,text,key,dictionary,option):
 	output = ""
 	letters = dictionary
 	keys = key
@@ -195,14 +211,14 @@ def monoalphabetic_cipher(mode,text,key,dictionary):
 			else:
 				output = output + keys[index].lower()
 		else:
-			output = output + text[i]
-
+			if option == 'keep':
+				output = output + text[i]
+			else:
+				continue
 	return output
 
 
 if __name__ == "__main__":
 	main()
-
-
 
 
