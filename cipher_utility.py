@@ -30,11 +30,11 @@ def cipher_utility():
 		elif cipher == "Monoalphabetic Cipher" and text != "":
 			dictionary = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 			if mode == 'Encrypt':
-				key = getRandomKey(dictionary)
+				key = get_random_key(dictionary)
 				output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
 				output1 = "Encrypted text: " + output1 + "\nKey: " + key
 			else:
-				if not(keyValidity(key,dictionary)):
+				if not(key_validity(key,dictionary)):
 					print("Error found in key")
 					exit(1)
 				output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
@@ -78,13 +78,13 @@ def index_list(input,item):
 	return indexes
 
 
-def getRandomKey(dictionary):
+def get_random_key(dictionary):
 	key = list(dictionary)
 	random.shuffle(key)
 	return ''.join(key)
 
 
-def keyValidity(key,dictionary):
+def key_validity(key,dictionary):
 	keyList = list(key)
 	dictionaryList = list(dictionary)
 	keyList.sort()
