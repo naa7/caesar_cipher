@@ -6,6 +6,8 @@
 ![img_2](https://github.com/naa7/cipher_utility/blob/main/images/caesar_decryption.png) 
 ![img_3](https://github.com/naa7/cipher_utility/blob/main/images/rot_encryption.png) 
 ![img_4](https://github.com/naa7/cipher_utility/blob/main/images/rot_decryption.png)
+![img_5](https://github.com/naa7/cipher_utility/blob/main/images/vigenere_encryption.png)
+![img_6](https://github.com/naa7/cipher_utility/blob/main/images/vigenere_decryption.png)
 
 
 The idea of this project is to encrypt and decrypt data using different cipher types. The way caesar cipher works
