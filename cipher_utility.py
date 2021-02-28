@@ -166,7 +166,7 @@ def vigenere_cipher(mode,text,key,option):
 		key_position = ord(key_letter)
 
 		if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
-			if option == 'Keep':			
+			if (option == 'Keep') or (option == 'Remove' and mode == 'Decrypt'):			
 				output = output + chr(char_position)
 				continue
 			else:
@@ -211,7 +211,7 @@ def monoalphabetic_cipher(mode,text,key,dictionary,option):
 			else:
 				output = output + keys[index].lower()
 		else:
-			if option == 'keep':
+			if (option == 'Keep') or (option == 'Remove' and mode == 'Decrypt'):
 				output = output + text[i]
 			else:
 				continue
