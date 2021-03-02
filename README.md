@@ -21,8 +21,26 @@ text will be `L#dp#khuh`. To decrypt it, we will do the opposite. Instead of mov
 forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` --> `a` and so on.
 
 
-### To run the program:
+## To run the program:
 
-  ####Clone the repository:
+  Clone the repository:
 
-	$ https://github.com/naa7/cipher_utility.git
+     $ cd && git clone https://github.com/naa7/cipher_utility.git
+
+     $ sh cipher_utility OR python cipher_utility.py
+
+## Optional
+
+For easier use of the timer without the need to navigate to its directory and run the file,
+
+run `install.sh`
+
+    $ chmod +x install.sh 
+   
+    $ ./install.sh
+
+Now, you can either open it from terminal
+
+    $ cipher_utility
+
+Or, open it from applications menu
