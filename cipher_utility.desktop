@@ -6,4 +6,3 @@ Exec=/usr/bin/cipher_utility
 Type=Application
 Categories=Utility;
 Path=/usr/bin
-Path=/usr/bin

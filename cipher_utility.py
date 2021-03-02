@@ -7,7 +7,7 @@ def main():
 def cipher_utility():
 	try:
 		input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
-			--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher|Gronsfeld Cipher"\
+			--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher|Gronsfeld Cipher|Tritheme Cipher"\
 			--add-combo="Mode" --combo-values="Encrypt|Decrypt"\
 			--add-combo="Word boundaries" --combo-values="Keep|Remove" --add-entry="Cipher key"\
 			--add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
@@ -40,6 +40,8 @@ def cipher_utility():
 				output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
 		elif cipher == "Gronsfeld Cipher" and text != "":
 			output1 = gronsfeld_cipher(mode,text,key,option)
+		elif cipher == "Tritheme Cipher" and text != "":
+			output1 = tritheme_cipher(mode,text,option)
 
 		else:
 			print("\n#############################")
@@ -262,6 +264,49 @@ def gronsfeld_cipher(mode,text,key,option):
 		output = output + new_char
 
 	return output
+
+
+def tritheme_cipher(mode,text,option):
+	output = ""
+	key = 0
+	
+	for i in range(len(text)):
+		text_letter = text[i]
+		
+		if text_letter.islower() == True:
+			text_letter = text_letter.upper()
+
+		char_position = ord(text_letter)
+		
+		if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
+			if option == 'Remove' and mode == 'Encrypt' and char_position == 32:
+				continue	
+			else:		
+				output = output + chr(char_position)
+				continue
+
+		char_position = char_position - 65
+
+		if mode == 'Encrypt':
+			new_char_position = char_position + key
+		else:
+			new_char_position = char_position - key
+
+		new_char_position = new_char_position % 26
+		new_char_position = new_char_position + 65
+		new_char = chr(new_char_position)
+		key = key + 1
+
+		if key == 26:
+			key = 0
+		
+		if text[i].islower():
+			new_char = new_char.lower()
+
+		output = output + new_char
+
+	return output
+
 
 if __name__ == "__main__":
 	main()
