@@ -4,4 +4,4 @@
 #!/bin/bash
 
 DIR=~/cipher_utility
-python $DIR/cipher_utility.py &
+python $DIR/cipher_utility.py

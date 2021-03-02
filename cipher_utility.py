@@ -44,7 +44,7 @@ def cipher_utility():
 			output1 = tritheme_cipher(mode,text,option)
 
 		else:
-			print("\n#############################")
+			print("#############################")
 			print("### Error, Entry missing! ###")
 			print("#############################")
 			exit(1)
@@ -62,7 +62,7 @@ def cipher_utility():
 
 	except Exception as e:
 		#print(e)
-		print("\n############################")
+		print("############################")
 		print("### Error, Program Exit! ###")
 		print("############################")
 
