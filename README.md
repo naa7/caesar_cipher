@@ -23,4 +23,6 @@ forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` 
 
 ### To run the program:
 
-    $ python cipher_utility.py
+  ####Clone the repository:
+
+	$ https://github.com/naa7/cipher_utility.git
