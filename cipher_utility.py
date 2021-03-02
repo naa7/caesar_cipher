@@ -42,7 +42,7 @@ def cipher_utility():
 			output1 = gronsfeld_cipher(mode,text,key,option)
 
 		else:
-			print("#############################")
+			print("\n#############################")
 			print("### Error, Entry missing! ###")
 			print("#############################")
 			return 1
@@ -60,7 +60,7 @@ def cipher_utility():
 
 	except Exception as e:
 		#print(e)
-		print("############################")
+		print("\n############################")
 		print("### Error, Program Exit! ###")
 		print("############################")
 

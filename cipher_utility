@@ -1,0 +1,7 @@
+# Created by naa7 on  03/01/2021
+# Copyright © 2021 naa7. All rights reserved.
+
+#!/bin/bash
+
+DIR=~/cipher_utility
+python $DIR/cipher_utility.py &
