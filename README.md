@@ -25,9 +25,9 @@ forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` 
 
   Clone the repository:
 
-     $ cd && git clone https://github.com/naa7/cipher_utility.git
+    $ cd && git clone https://github.com/naa7/cipher_utility.git
 
-     $ sh cipher_utility OR python cipher_utility.py
+    $ sh cipher_utility OR python cipher_utility.py
 
 ## Optional
 
