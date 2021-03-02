@@ -35,9 +35,7 @@ For easier use of the timer without the need to navigate to its directory and ru
 
 run `install.sh`
 
-    $ chmod +x install.sh 
-   
-    $ ./install.sh
+    $ sh install.sh 
 
 Now, you can either open it from terminal
 
@@ -47,4 +45,4 @@ Or, open it from applications menu
 
 To uninstall, run:
     
-   $ sh uninstall.sh
+    $ sh uninstall.sh

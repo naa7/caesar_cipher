@@ -45,7 +45,7 @@ def cipher_utility():
 			print("\n#############################")
 			print("### Error, Entry missing! ###")
 			print("#############################")
-			return 1
+			exit(1)
         
 		file = open("temp.txt", "w+")
 		file.write(output1)
