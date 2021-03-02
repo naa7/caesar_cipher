@@ -34,6 +34,8 @@ forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` 
 For easier use of the timer without the need to navigate to its directory and run the file,
 
 run `install.sh`
+    
+    $ chmod +x cipher_utility
 
     $ sh install.sh 
 
