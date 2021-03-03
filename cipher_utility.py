@@ -22,15 +22,16 @@ def cipher_utility():
 			option = input[ind[1]+1:ind[2]]
 			key = input[ind[2]+1:ind[3]]
 			text = input[ind[3]+1:]
+			dictionary = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 			if cipher == "Caesar Cipher" and text != "" and key != "":
 				output1 = caesar_cipher(mode,text,int(key))
 			elif cipher == "ROT Cipher" and text != "" and key != "":
 				output1 = rot_cipher(mode,text,int(key),option)
 			elif cipher == "Vigenere Cipher" and text != "" and key != "":
-				output1 = vigenere_cipher(mode,text,key,option)
+				key = key.upper()
+				output1 = vigenere_cipher(mode,text,key,dictionary,option)
 			elif cipher == "Monoalphabetic Cipher" and text != "":
-				dictionary = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 				if mode == 'Encrypt':
 					key = get_random_key(dictionary)
 					output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
@@ -65,9 +66,9 @@ def cipher_utility():
 
 		except Exception as e:
 			#print(e)
-			print("############################")
-			print("### Error, Program Exit! ###")
-			print("############################")
+			print("#####################")
+			print("### Program Exit! ###")
+			print("#####################")
 			break;
 
 
@@ -159,47 +160,39 @@ def rot_cipher(mode,text,key,option):
 	return output
 
 
-def vigenere_cipher(mode,text,key,option):
+def vigenere_cipher(mode,text,key,dictionary,option):
 	output = ""
+	letters = dictionary
 	keyIndex = 0
-	key = key.upper()
     
 	for i in range(len(text)):
-		text_letter = text[i]
-		key_letter = key[keyIndex]
-        
-		if text_letter.islower() == True:
-			text_letter = text_letter.upper()
-        
-		char_position = ord(text_letter)
-		key_position = ord(key_letter)
+		letter_index = letters.find(text[i].upper())
 
-		if not((char_position >= 65 and char_position <= 90) or (char_position >= 97 and char_position <= 122)):
+		if letter_index != -1:		
+			if mode == 'Encrypt':
+				letter_index = letter_index + letters.find(key[keyIndex])
+			elif mode == 'Decrypter':
+				letter_index = letter_index - letters.find(key[keyIndex])
+
+			letter_index = letter_index % 26
+			
+			if text[i].isupper():
+				output = output + letters[letter_index]
+			elif text[i].islower():
+				output = output + letters[letter_index].lower()
+
+			keyIndex = keyIndex + 1
+
+			if keyIndex == len(key):
+				keyIndex = 0
+		else:
+			char_position = ord(text[i])
+
 			if option == 'Remove' and mode == 'Encrypt' and char_position == 32:
-				continue	
-			else:		
-				output = output + chr(char_position)
 				continue
-
-		char_position = char_position - 65
-        
-		if mode == 'Encrypt':
-			new_char_position = char_position + key_position
-		elif mode == 'Decrypt':
-			new_char_position = char_position - key_position
-
-		new_char_position = new_char_position % 26
-		new_char_position = new_char_position + 65
-		new_char = chr(new_char_position)
-		keyIndex = keyIndex + 1
-
-		if keyIndex == len(key):
-			keyIndex = 0
-        
-		if text[i].islower():
-			new_char = new_char.lower()
-
-		output = output + new_char
+			else:
+				output = output + text[i]
+				continue     
 
 	return output
 
