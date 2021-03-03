@@ -36,6 +36,7 @@ def cipher_utility():
 					output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
 					output1 = "Encrypted text: " + output1 + "\nKey: " + key
 				else:
+					key = key.upper()
 					if not(key_validity(key,dictionary)):
 						print("Error found in key")
 						exit(1)
