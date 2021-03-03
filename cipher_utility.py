@@ -8,7 +8,7 @@ def cipher_utility():
 	
 	while True:
 		try:
-			input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
+			input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text=" Note: Click on Cancel to exit the program" --add-combo="Cipher type"\
 				--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher|Gronsfeld Cipher|Tritheme Cipher"\
 				--add-combo="Mode" --combo-values="Encrypt|Decrypt"\
 				--add-combo="Word boundaries" --combo-values="Keep|Remove" --add-entry="Cipher key"\
