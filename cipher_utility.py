@@ -5,66 +5,69 @@ def main():
 
 
 def cipher_utility():
-	try:
-		input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
-			--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher|Gronsfeld Cipher|Tritheme Cipher"\
-			--add-combo="Mode" --combo-values="Encrypt|Decrypt"\
-			--add-combo="Word boundaries" --combo-values="Keep|Remove" --add-entry="Cipher key"\
-			--add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
-        
-		input = input.stdout.readline()
-		input = input.strip()
-		ind = index_list(input,'|')
-		cipher = input[:ind[0]]
-		mode = input[ind[0]+1:ind[1]]
-		option = input[ind[1]+1:ind[2]]
-		key = input[ind[2]+1:ind[3]]
-		text = input[ind[3]+1:]
+	
+	while True:
+		try:
+			input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --add-combo="Cipher type"\
+				--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher|Gronsfeld Cipher|Tritheme Cipher"\
+				--add-combo="Mode" --combo-values="Encrypt|Decrypt"\
+				--add-combo="Word boundaries" --combo-values="Keep|Remove" --add-entry="Cipher key"\
+				--add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+		
+			input = input.stdout.readline()
+			input = input.strip()
+			ind = index_list(input,'|')
+			cipher = input[:ind[0]]
+			mode = input[ind[0]+1:ind[1]]
+			option = input[ind[1]+1:ind[2]]
+			key = input[ind[2]+1:ind[3]]
+			text = input[ind[3]+1:]
 
-		if cipher == "Caesar Cipher" and text != "" and key != "":
-			output1 = caesar_cipher(mode,text,int(key))
-		elif cipher == "ROT Cipher" and text != "" and key != "":
-			output1 = rot_cipher(mode,text,int(key),option)
-		elif cipher == "Vigenere Cipher" and text != "" and key != "":
-			output1 = vigenere_cipher(mode,text,key,option)
-		elif cipher == "Monoalphabetic Cipher" and text != "":
-			dictionary = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-			if mode == 'Encrypt':
-				key = get_random_key(dictionary)
-				output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
-				output1 = "Encrypted text: " + output1 + "\nKey: " + key
+			if cipher == "Caesar Cipher" and text != "" and key != "":
+				output1 = caesar_cipher(mode,text,int(key))
+			elif cipher == "ROT Cipher" and text != "" and key != "":
+				output1 = rot_cipher(mode,text,int(key),option)
+			elif cipher == "Vigenere Cipher" and text != "" and key != "":
+				output1 = vigenere_cipher(mode,text,key,option)
+			elif cipher == "Monoalphabetic Cipher" and text != "":
+				dictionary = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				if mode == 'Encrypt':
+					key = get_random_key(dictionary)
+					output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
+					output1 = "Encrypted text: " + output1 + "\nKey: " + key
+				else:
+					if not(key_validity(key,dictionary)):
+						print("Error found in key")
+						exit(1)
+					output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
+			elif cipher == "Gronsfeld Cipher" and text != "":
+				output1 = gronsfeld_cipher(mode,text,key,option)
+			elif cipher == "Tritheme Cipher" and text != "":
+				output1 = tritheme_cipher(mode,text,option)
+
 			else:
-				if not(key_validity(key,dictionary)):
-					print("Error found in key")
-					exit(1)
-				output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
-		elif cipher == "Gronsfeld Cipher" and text != "":
-			output1 = gronsfeld_cipher(mode,text,key,option)
-		elif cipher == "Tritheme Cipher" and text != "":
-			output1 = tritheme_cipher(mode,text,option)
+				print("#############################")
+				print("### Error, Entry missing! ###")
+				print("#############################")
+				exit(1)
+		
+			file = open("temp.txt", "w+")
+			file.write(output1)
+			file.close()
+		
+			if mode == 'Encrypt':
+				output2 = 'cat temp.txt | zenity --width=400 --height=150 --title="Encrypted Text" --text-info && rm temp.txt'
+			else:
+				output2 = 'cat temp.txt | zenity --width=400 --height=150 --title="decrypted Text" --text-info && rm temp.txt'
 
-		else:
-			print("#############################")
-			print("### Error, Entry missing! ###")
-			print("#############################")
-			exit(1)
-        
-		file = open("temp.txt", "w+")
-		file.write(output1)
-		file.close()
-        
-		if mode == 'Encrypt':
-			output2 = 'cat temp.txt | zenity --width=400 --height=150 --title="Encrypted Text" --text-info && rm temp.txt'
-		else:
-			output2 = 'cat temp.txt | zenity --width=400 --height=150 --title="decrypted Text" --text-info && rm temp.txt'
+			call = subprocess.call(output2, shell=True)
 
-		call = subprocess.call(output2, shell=True)
-
-	except Exception as e:
-		#print(e)
-		print("############################")
-		print("### Error, Program Exit! ###")
-		print("############################")
+		except Exception as e:
+			#print(e)
+			print("############################")
+			print("### Error, Program Exit! ###")
+			print("############################")
+			break;
 
 
 def index_list(input,item):
