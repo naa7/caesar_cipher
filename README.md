@@ -2,14 +2,8 @@
 
 ![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103) <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg"> <img src="https://img.shields.io/github/stars/naa-7/caesar_cipher?style=social"> <img src="https://img.shields.io/github/repo-size/naa-7/caesar_cipher"> [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/naa-7/caesar_cipher/LICENSE)
 
-![img_1](https://github.com/naa7/cipher_utility/blob/main/images/caesar_encryption.png) 
-![img_2](https://github.com/naa7/cipher_utility/blob/main/images/caesar_decryption.png) 
-![img_3](https://github.com/naa7/cipher_utility/blob/main/images/rot_encryption.png) 
-![img_4](https://github.com/naa7/cipher_utility/blob/main/images/rot_decryption.png)
-![img_5](https://github.com/naa7/cipher_utility/blob/main/images/vigenere_encryption.png)
-![img_6](https://github.com/naa7/cipher_utility/blob/main/images/vigenere_decryption.png)
-![img_7](https://github.com/naa7/cipher_utility/blob/main/images/monoalphabetic_encryption.png)
-![img_8](https://github.com/naa7/cipher_utility/blob/main/images/monoalphabetic_decryption.png)
+![Manual](https://github.com/naa7/cipher_utility/blob/main/images/manual.png) 
+![cipher_utility](https://github.com/naa7/cipher_utility/blob/main/images/cipher_utility.png) 
 
 
 The idea of this project is to encrypt and decrypt data using different cipher types. The way caesar cipher works
