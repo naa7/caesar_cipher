@@ -29,6 +29,8 @@ then
 			exit 1
 		fi
 		cd $DIR && python cipher_utility.py
+	fi
+
 else
 	cd $DIR && python cipher_utility.py
 fi
