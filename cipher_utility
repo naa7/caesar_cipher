@@ -1,5 +1,34 @@
 # Copyright © 2021 naa7. All rights reserved.
+
 #!/bin/bash
 
 DIR=~/cipher_utility
-cd $DIR && python cipher_utility.py
+
+if ! (dpkg -s zenity >/dev/null 2>&1) && ! (rpm -q zenity >/dev/null 2>&1) && ! (yum list installed zenity >/dev/null 2>&1) && ! (dnf list installed zenity >/dev/null 2>&1) && ! (which hub >/dev/null 2>&1)
+then
+	echo -n "zenity is not found! Do you want to install it? (Y/n): "
+	read answer
+	echo -ne "\033[A\033[2K\r"
+	if [[ $answer == 'Y' || $answer == 'y' ]]
+	then
+		if (sudo apt-get -y install zenity >/dev/null 2>&1) ;
+		then
+			echo "Finished Downloading xfce4-terminal"
+			sleep 1 && echo -ne "\033[A\033[2K\r\033[A\033[2K\r"
+		# it works the same as the previous if condition just different format
+		elif (yes | sudo pacman -S zenity >/dev/null 2>&1) ;
+		then
+			echo "Finished Downloading xfce4-terminal"
+			sleep 1 && echo -ne "\033[A\033[2K\r\033[A\033[2K\r"
+		# it works the same as the "if ! dpkg" condition just different format 
+		elif ! (sudo yum -y install zenity >/dev/null 2>&1) ;
+		then
+			echo "Couldn't install it, you need to install it manually"
+			echo "Error, Program exit"
+			sleep 2 && echo -ne "\033[A\033[2K\r\033[A\033[2K\r\033[A\033[2K\r"			
+			exit 1
+		fi
+		cd $DIR && python cipher_utility.py
+else
+	cd $DIR && python cipher_utility.py
+fi
