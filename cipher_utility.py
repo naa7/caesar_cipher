@@ -1,4 +1,4 @@
-import subprocess, random
+import subprocess, random, sys
 
 def main():
 	cipher_utility()
@@ -13,14 +13,14 @@ def cipher_utility():
 			echo "You need to install zenity";echo "Program Exit!";exit 1;fi;fi;'
 
 	if (subprocess.call(install, shell=True)) == 1:
-		exit(1)
+		sys.exit(1)
 
 	manual = 'zenity --title="Cipher Utility" --text-info --html --filename=manual.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
 	if (subprocess.call(manual, shell=True)) == 1:
 		print("#####################")
 		print("### Program Exit! ###")
 		print("#####################")
-		exit(1)
+		sys.exit(1)
 	else:
 		while True:
 			try:
@@ -56,7 +56,7 @@ def cipher_utility():
 						key = key.upper()
 						if not(key_validity(key,dictionary)):
 							print("Error found in key")
-							exit(1)
+							sys.exit(1)
 						output1 = monoalphabetic_cipher(mode,text,key,dictionary,option)
 				elif cipher == "Gronsfeld Cipher" and text != "":
 					output1 = gronsfeld_cipher(mode,text,key,option)
@@ -67,7 +67,7 @@ def cipher_utility():
 					print("#############################")
 					print("### Error, Entry missing! ###")
 					print("#############################")
-					exit(1)
+					sys.exit(1)
 			
 				file = open("temp.txt", "w+")
 				file.write(output1)
