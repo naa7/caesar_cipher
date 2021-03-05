@@ -21,6 +21,8 @@ forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` 
 
     $ cd cipher_utility/exec_files/ && ./cipher_utility
 
+    OR
+
     $ cd cipher_utility/python_files/ && python cipher_utility.py
 
 ## Optional
