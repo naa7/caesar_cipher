@@ -20,16 +20,16 @@ def cipher_utility():
 	<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">Caesar Cipher</li>\n<li>ROT Cipher</li>\n<li>Vigenere Cipher</li>\n<li>Monoalphabetic Cipher</li>\n<li>Gronsfeld Cipher</li>\n\
 	<li>Tritheme Cipher</li>\n</ul>\n<b style="font-size:14px;"><u>Modes:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">Encryption</li>\n<li>Decryption</li>\n</ul>\n\n\
 	<b style="font-size:14px;"><u>Word boundaries:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">This <b>ONLY</b> works for encryption</li>\n</ul>\n\n\
-	<b style="font-size:14px;"><u>Cipher key:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-bottom: 7px;margin-top: -5px"><b>Caesar Cipher</b>\
-	accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;"><b>ROT Cipher</b> accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n\
-	<li style="margin-bottom: 7px;"><b>Vigenere Cipher</b> accepts a <b>LETTER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;"><b>Monoalphabetic Cipher</b> accepts\
-	<b>ONLY</b> a key for decryption</li>\n<li style="margin-bottom: 7px;"><b>Gronsfeld Cipher</b> accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;"><b>Tritheme Cipher</b>\
+	<b style="font-size:14px;"><u>Cipher key:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-bottom: 7px;margin-top: -5px">Caesar Cipher\
+	accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">ROT Cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n\
+	<li style="margin-bottom: 7px;">Vigenere Cipher accepts a <b>LETTER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">Monoalphabetic Cipher accepts\
+	<b>ONLY</b> a key for decryption</li>\n<li style="margin-bottom: 7px;">Gronsfeld Cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">Tritheme Cipher\
 	does <b>NOT</b> accept a key for encryption or decryption</li>\n</ul>\n\n<b style="font-size:14px;"><u>Enter text:</u></b>\n<ul style="font-size:13px;">\n\
 	<li style="margin-top: -5px;">Here, you enter the text to be either encrypted or decrypted</li>\n</ul>\n</p>\n</body>\n</html>')
 	file.close()
 
 	manual_removal = 'rm manpage.txt'
-	manual = 'zenity --title="Cipher Utility" --text-info --height=400 --width=400 --html --filename=manpage.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
+	manual = 'zenity --title="Cipher Utility" --text-info --height=650 --width=530 --html --filename=manpage.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
 
 	if (subprocess.call(manual, shell=True)) == 1:
 		print("#####################")
