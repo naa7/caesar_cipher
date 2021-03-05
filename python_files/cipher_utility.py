@@ -29,7 +29,7 @@ def cipher_utility():
 	file.close()
 
 	manual_removal = 'rm manpage.txt'
-	manual = 'zenity --title="Cipher Utility" --text-info --html --filename=manpage.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
+	manual = 'zenity --title="Cipher Utility" --text-info --height=400 --width=400 --html --filename=manpage.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
 
 	if (subprocess.call(manual, shell=True)) == 1:
 		print("#####################")
