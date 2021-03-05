@@ -25,10 +25,6 @@ forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` 
 
     $ cd cipher_utility/python_files/ && python cipher_utility.py
 
-    OR
-
-    $ cd cipher_utility/exec_files/ && ./cipher_utility
-
 ## Optional
 
 For easier use of the timer without the need to navigate to its directory and run the file,
