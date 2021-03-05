@@ -28,7 +28,7 @@ def cipher_utility():
 	<li style="margin-top: -5px;">Here, you enter the text to be either encrypted or decrypted</li>\n</ul>\n</p>\n</body>\n</html>')
 	file.close()
 
-	manual_removal = 'ls m* && rm manpage.txt && ls m*'
+	manual_removal = 'rm manpage.txt'
 	manual = 'zenity --title="Cipher Utility" --text-info --html --filename=manpage.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
 
 	if (subprocess.call(manual, shell=True)) == 1:
