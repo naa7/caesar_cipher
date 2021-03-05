@@ -6,6 +6,15 @@ def main():
 
 def cipher_utility():
 	
+	install = 'if ! (dpkg -s zenity >/dev/null 2>&1) && ! (rpm -q zenity >/dev/null 2>&1) && ! (yum list installed zenity >/dev/null 2>&1) && ! (dnf list installed zenity >/dev/null 2>&1)\
+			&& ! (which zenity >/dev/null 2>&1 && echo $? >/dev/null 2>&1);then echo -n "Zenity is required to run the program, Do you want to install it?(Y/n): ";read answer;\
+			echo -ne "\033[A\033[2K\r";if [[ $answer == "Y" || $answer == "y" ]];then if ! (sudo apt-get -y install zenity >/dev/null 2>&1) && ! (yes | sudo pacman -S zenity >/dev/null 2>&1)\
+			&& ! (sudo yum -y install zenity >/dev/null 2>&1);then echo "Package Couldn\'t be installed. You need to install it manually!";else echo -ne "\033[A\033[2K\r";fi;else \
+			echo "You need to install zenity";echo "Program Exit!";exit 1;fi;fi;'
+
+	if (subprocess.call(install, shell=True)) == 1:
+		exit(1)
+
 	manual = 'zenity --title="Cipher Utility" --text-info --html --filename=manual.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
 	if (subprocess.call(manual, shell=True)) == 1:
 		print("#####################")
