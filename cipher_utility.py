@@ -15,13 +15,30 @@ def cipher_utility():
 	if (subprocess.call(install, shell=True)) == 1:
 		sys.exit(1)
 
-	manual = 'zenity --title="Cipher Utility" --text-info --html --filename=manual.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
+	file = open("manpage.txt","w+")
+	file.write('<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body style="background-color:black;color:LightGray;">\n<h2 style="text-align:center;"><u>Manual</u></h2>\n<p>\n<b style="font-size:14px;"><u>Cipher types:</u></b>\n\
+	<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">Caesar Cipher</li>\n<li>ROT Cipher</li>\n<li>Vigenere Cipher</li>\n<li>Monoalphabetic Cipher</li>\n<li>Gronsfeld Cipher</li>\n\
+	<li>Tritheme Cipher</li>\n</ul>\n<b style="font-size:14px;"><u>Modes:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">Encryption</li>\n<li>Decryption</li>\n</ul>\n\n\
+	<b style="font-size:14px;"><u>Word boundaries:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">This <b>ONLY</b> works for encryption</li>\n</ul>\n\n\
+	<b style="font-size:14px;"><u>Cipher key:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-bottom: 7px;margin-top: -5px"><b>Caesar Cipher</b>\
+	accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;"><b>ROT Cipher</b> accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n\
+	<li style="margin-bottom: 7px;"><b>Vigenere Cipher</b> accepts a <b>LETTER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;"><b>Monoalphabetic Cipher</b> accepts\
+	<b>ONLY</b> a key for decryption</li>\n<li style="margin-bottom: 7px;"><b>Gronsfeld Cipher</b> accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;"><b>Tritheme Cipher</b>\
+	does <b>NOT</b> accept a key for encryption or decryption</li>\n</ul>\n\n<b style="font-size:14px;"><u>Enter text:</u></b>\n<ul style="font-size:13px;">\n\
+	<li style="margin-top: -5px;">Here, you enter the text to be either encrypted or decrypted</li>\n</ul>\n</p>\n</body>\n</html>')
+	file.close()
+
+	manual_removal = 'ls m* && rm manpage.txt && ls m*'
+	manual = 'zenity --title="Cipher Utility" --text-info --html --filename=manpage.txt --ok-label="NEXT" --cancel-label="EXIT" 2>/dev/null'
+
 	if (subprocess.call(manual, shell=True)) == 1:
 		print("#####################")
 		print("### Program Exit! ###")
 		print("#####################")
+		subprocess.call(manual_removal, shell=True);
 		sys.exit(1)
 	else:
+		subprocess.call(manual_removal, shell=True);
 		while True:
 			try:
 				input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --ok-label="Next" --cancel-label="Exit" --add-combo="Cipher type"\
