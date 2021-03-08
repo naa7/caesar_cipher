@@ -4,8 +4,7 @@ def main():
 
 	answer = input("Do you want to [I]NSTALL or [U]NINSTALL the program?(I/u): ")
 	if answer == 'I' or answer == 'i':
-		install = 'echo -ne "\033[A\033[2K\r";mkdir Cipher-Utility; cp -r $(ls -A | grep -v "Cipher-Utility") Cipher-Utility/;mv Cipher-Utility cipher-utility;mv cipher-utility ~/;\
-		sudo cp cipher_utility /usr/bin/;cd ~/cipher-utility &&\
+		install = 'echo -ne "\033[A\033[2K\r";sudo cp cipher_utility /usr/bin/;mkdir cipher-utility; cp -r $(ls -A | grep -v "cipher-utility") cipher-utility/;mv cipher-utility ~/;cd ~/cipher-utility &&\
 		echo -e "[Desktop Entry]\nName=Cipher Utility\nStartupWMClass=Cipher Utility\nComment=Encryption/Decryption Utility\nExec=/usr/bin/cipher_utility\nType=Application\nCategories=Utility" > cipher_utility.desktop;\
 		path=$PWD;if !([[ $(grep -o "Icon" cipher_utility.desktop) == "Icon" ]]);then echo "Icon=$path/icon.png" >> cipher_utility.desktop;fi;sudo cp cipher_utility.desktop /usr/share/applications/;rm cipher_utility.desktop'
 		call = subprocess.call(install, shell=True)
