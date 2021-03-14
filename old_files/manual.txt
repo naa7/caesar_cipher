@@ -14,6 +14,8 @@
 <li>Monoalphabetic Cipher</li>
 <li>Gronsfeld Cipher</li>
 <li>Tritheme Cipher</li>
+<li>A1Z26 Cipher</li>
+<li>Morse Code Cipher</li>
 </ul>
 
 
@@ -32,12 +34,14 @@
 
 <b style="font-size:14px;"><u>Cipher key:</u></b>
 <ul style="font-size:13px;margin-bottom: 20px;">
-<li style="margin-bottom: 7px;margin-top: -5px">Caesar Cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>
-<li style="margin-bottom: 7px;">ROT Cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>
-<li style="margin-bottom: 7px;">Vigenere Cipher accepts a <b>LETTER</b> key for both encryption and decryption</li>
-<li style="margin-bottom: 7px;">Monoalphabetic Cipher accepts <b>ONLY</b> a key for decryption</li>
-<li style="margin-bottom: 7px;">Gronsfeld Cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>
-<li style="margin-bottom: 7px;">Tritheme Cipher does <b>NOT</b> accept a key for encryption or decryption</li>
+<li style="margin-bottom: 7px;margin-top: -5px">Caesar cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>
+<li style="margin-bottom: 7px;">ROT cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>
+<li style="margin-bottom: 7px;">Vigenere cipher accepts a <b>LETTER</b> key for both encryption and decryption</li>
+<li style="margin-bottom: 7px;">Monoalphabetic cipher accepts <b>ONLY</b> a key for decryption</li>
+<li style="margin-bottom: 7px;">Gronsfeld cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>
+<li style="margin-bottom: 7px;">Tritheme cipher does <b>NOT</b> accept a key for encryption or decryption</li>
+<li style="margin-bottom: 7px;">A1Z26 cipher does <b>NOT</b> accept a key for encryption or decryption</li>
+<li style="margin-bottom: 7px;">Morse Code cipher does <b>NOT</b> accept a key for encryption or decryption</li>
 </ul>
 
 

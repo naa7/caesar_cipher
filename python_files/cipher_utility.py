@@ -18,12 +18,13 @@ def cipher_utility():
 	file = open("manpage.txt","w+")
 	file.write('<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body style="background-color:black;color:LightGray;">\n<h2 style="text-align:center;"><u>Manual</u></h2>\n<p>\n<b style="font-size:14px;"><u>Cipher types:</u></b>\n\
 	<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">Caesar Cipher</li>\n<li>ROT Cipher</li>\n<li>Vigenere Cipher</li>\n<li>Monoalphabetic Cipher</li>\n<li>Gronsfeld Cipher</li>\n\
-	<li>Tritheme Cipher</li>\n</ul>\n<b style="font-size:14px;"><u>Modes:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">Encryption</li>\n<li>Decryption</li>\n</ul>\n\n\
+	<li>Tritheme Cipher</li>\n<li>A1Z26 Cipher</li>\n<li>Morse Code Cipher</li>\n</ul>\n<b style="font-size:14px;"><u>Modes:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">Encryption</li>\n<li>Decryption</li>\n</ul>\n\n\
 	<b style="font-size:14px;"><u>Word boundaries:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-top: -5px;">This <b>ONLY</b> works for encryption</li>\n</ul>\n\n\
-	<b style="font-size:14px;"><u>Cipher key:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-bottom: 7px;margin-top: -5px">Caesar Cipher\
-	accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">ROT Cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n\
-	<li style="margin-bottom: 7px;">Vigenere Cipher accepts a <b>LETTER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">Monoalphabetic Cipher accepts\
-	<b>ONLY</b> a key for decryption</li>\n<li style="margin-bottom: 7px;">Gronsfeld Cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">Tritheme Cipher\
+	<b style="font-size:14px;"><u>Cipher key:</u></b>\n<ul style="font-size:13px;margin-bottom: 20px;">\n<li style="margin-bottom: 7px;margin-top: -5px">Caesar cipher\
+	accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">ROT cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n\
+	<li style="margin-bottom: 7px;">Vigenere cipher accepts a <b>LETTER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">Monoalphabetic cipher accepts\
+	<b>ONLY</b> a key for decryption</li>\n<li style="margin-bottom: 7px;">Gronsfeld Cipher accepts a <b>NUMBER</b> key for both encryption and decryption</li>\n<li style="margin-bottom: 7px;">Tritheme cipher\
+	does <b>NOT</b> accept a key for encryption or decryption</li>\n<li style="margin-bottom: 7px;">A1Z26 cipher does <b>NOT</b> accept a key for encryption or decryption</li>\n<li style="margin-bottom: 7px;">Morse Code cipher\
 	does <b>NOT</b> accept a key for encryption or decryption</li>\n</ul>\n\n<b style="font-size:14px;"><u>Enter text:</u></b>\n<ul style="font-size:13px;">\n\
 	<li style="margin-top: -5px;">Here, you enter the text to be either encrypted or decrypted</li>\n</ul>\n</p>\n</body>\n</html>')
 	file.close()
@@ -42,7 +43,7 @@ def cipher_utility():
 		while True:
 			try:
 				input = subprocess.Popen('zenity --forms --title="Cipher Utility" --text="" --ok-label="Next" --cancel-label="Exit" --add-combo="Cipher type"\
-					--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher|Gronsfeld Cipher|Tritheme Cipher"\
+					--combo-values="Caesar Cipher|ROT Cipher|Vigenere Cipher|Monoalphabetic Cipher|Gronsfeld Cipher|Tritheme Cipher|A1Z26 Cipher|Morse Code Cipher"\
 					--add-combo="Mode" --combo-values="Encrypt|Decrypt"\
 					--add-combo="Word boundaries" --combo-values="Keep|Remove" --add-entry="Cipher key"\
 					--add-entry="Enter text"', shell=True, stdout=subprocess.PIPE, universal_newlines=True)
@@ -79,7 +80,10 @@ def cipher_utility():
 					output1 = gronsfeld_cipher(mode,text,key,option)
 				elif cipher == "Tritheme Cipher" and text != "":
 					output1 = tritheme_cipher(mode,text,option)
-
+				elif cipher == "A1Z26 Cipher" and text != "":
+					output1 = a1z26_cipher(mode,text,dictionary,option)
+				elif cipher == "Morse Code Cipher" and text != "":
+					output1 = morse_code_cipher(mode,text,option)
 				else:
 					print("#############################")
 					print("### Error, Entry missing! ###")
@@ -336,6 +340,82 @@ def tritheme_cipher(mode,text,option):
 		output = output + new_char
 
 	return output
+
+def a1z26_cipher(mode,text,dictionary,option):
+	output = ""
+	letters = dictionary
+	
+	if mode == 'Encrypt':
+		for i in range(len(text)):
+			if text[i].upper() in letters:
+				if i == len(text) - 1:
+					output = output + str(letters.find(text[i].upper())+1)
+				else:				
+					output = output + str(letters.find(text[i].upper())+1) + "-"
+			else:
+				if ((option == 'Keep') or (option == 'Remove' and mode == 'Decrypt')) and (ord(text[i]) == 32 or ord(text[i]) == 46):		
+					if output[-1] == '-':
+						output = output[:-1]
+					if ord(text[i]) == 46:
+						output = output + ' |'
+					else:
+						output = output + text[i]
+				else:
+					if output[-1] == '-':
+						output = output[:-1]
+					continue
+	else:
+		index = text.split()
+		for  i in index:
+			elements = i.split('-')
+			for j in elements:
+				if j != '' and j != '|':
+					output = output + letters[int(j)-1].lower()
+				else:
+					output = output + j
+					continue
+			output = output + " "
+	return output
+
+
+def morse_code_cipher(mode,text,option):
+	morse_code_dictionary = {
+        # Letters
+	"a": ".-", "b": "-...", "c": "-.-.", "d": "-..", "e": ".", "f": "..-.", "g": "--.", "h": "....", "i": "..", "j": ".---", "k": "-.-", "l": ".-..", "m": "--", 
+	"n": "-.", "o": "---", "p": ".--.", "q": "--.-", "r": ".-.", "s": "...", "t": "-", "u": "..-", "v": "...-", "w": ".--", "x": "-..-", "y": "-.--", "z": "--..",
+        # Numbers
+        "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...", "8": "---..", "9": "----.",
+        # Punctuation
+        "&": ".-...", "'": ".----.", "@": ".--.-.", ")": "-.--.-", "(": "-.--.", ":": "---...", ",": "--..--", "=": "-...-", "!": "-.-.--", ".": ".-.-.-", "-": "-....-", "+": ".-.-.", '"': ".-..-.", "?": "..--..", "/": "-..-.",
+		}
+	output = ""
+	if mode == 'Encrypt':
+		for i in range(len(text)):
+				if text[i].lower() in morse_code_dictionary:
+					output = output + morse_code_dictionary[text[i].lower()] + " "
+				elif option == 'Keep' and ord(text[i]) == 32:
+					output = output + text[i]
+				else:
+					continue
+	else:
+		elements = text.split(" ")
+		for element in elements:
+			
+    			#Iterate keys of dict: keys()
+    			#Iterate values of dict: values()
+    			#Iterate key-value pairs of dict: items()
+			for key, value in morse_code_dictionary.items():
+				if element == value:
+					output = output + key
+					break
+				elif element == '':
+					output = output + ' '
+					break
+				else:
+					continue
+			
+	return output
+
 
 
 if __name__ == "__main__":
