@@ -1,4 +1,0 @@
-#!/bin/bash
-
-DIR=~/cipher-utility
-cd $DIR && python cipher_utility.py
