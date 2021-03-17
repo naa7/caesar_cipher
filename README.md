@@ -19,7 +19,7 @@ forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` 
 
     $ cd && git clone https://github.com/naa7/cipher_utility.git
 
-    $ cd cipher_utility/exec_files/ && ./cipher_utility
+    $ cd cipher_utility/exec_files/ && ./cipher_utility.exe
 
     OR
 
@@ -29,9 +29,9 @@ forward, we will move three positions backward, `L` --> `I`, `#` --> `" "`, `d` 
 
 For easier use of the timer without the need to navigate to its directory and run the file,
 
-run `installer_uninstaller` for installing and uninstalling:
+run `installer_uninstaller.exe` for installing and uninstalling:
     
-    $ cd cipher_utility/exec_files/ && ./installer_uninstaller
+    $ cd cipher_utility/exec_files/ && ./installer_uninstaller.exe
 
 Now, you can either open it from terminal
 
