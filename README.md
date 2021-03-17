@@ -38,3 +38,4 @@ Now, you can either open it from terminal
     $ cipher_utility
 
 Or, open it from applications menu
+
