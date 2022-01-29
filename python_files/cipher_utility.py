@@ -208,7 +208,7 @@ def vigenere_cipher(mode,text,key,dictionary,option):
 		if letter_index != -1:		
 			if mode == 'Encrypt':
 				letter_index = letter_index + letters.find(key[keyIndex])
-			elif mode == 'Decrypter':
+			elif mode == 'Decrypt':
 				letter_index = letter_index - letters.find(key[keyIndex])
 
 			letter_index = letter_index % 26
