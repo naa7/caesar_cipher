@@ -23,17 +23,13 @@ The program supports the Caesar cipher method as an example. It encrypts text by
 To run the program:
 
 1. Clone the repository: `$ git clone https://github.com/naa7/cipher_utility.git`
-2. Navigate to the appropriate directory:
-   - For executable files: `$ cd cipher_utility/exec_files/`
-   - For Python files: `$ cd cipher_utility/python_files/`
-3. Run the program:
-   - For executable files: `$ ./cipher_utility.exe`
-   - For Python files: `$ python cipher_utility.py`
+2. Navigate to the appropriate directory: `$ cd cipher_utility/python_files/`
+3. Run the program: `$ python cipher_utility.py`
 
 ### Optional: Easy Timer Installation
 
-1. Run installer_uninstaller.exe:
-   - For installer/uninstaller: `$ ./installer_uninstaller.exe`
+1. Run installer_uninstaller.py:
+   - For installer/uninstaller: `$ ./installer_uninstaller.py`
 
 After installation, you can conveniently use the timer by typing `cipher_utility` in the terminal or accessing it from the applications menu.
 
